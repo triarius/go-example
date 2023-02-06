@@ -32,13 +32,3 @@ steps:
                 args:
                   - test
                   - ./...
-  - name: ":go::hammer: Build"
-    agents:
-      queue: kubernetes
-    plugins:
-      - kubernetes:
-          podSpec:
-            containers:
-              - image: golang:1.20
-                command:
-                  - .buildkite/steps/build.sh
