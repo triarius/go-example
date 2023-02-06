@@ -1,4 +1,17 @@
 steps:
+  - name: ":go::lint-roller: Lint"
+    agents:
+      queue: kubernetes
+    plugins:
+      - kubernetes:
+          podSpec:
+            containers:
+              - image: golangci-lint:1.51.1
+                command:
+                  - golangci-lint
+                args:
+                  - run
+                  - -v
   - name: ":go::hammer: Test"
     agents:
       queue: kubernetes
@@ -7,7 +20,8 @@ steps:
           podSpec:
             containers:
               - image: golang:1.20
-                command: [go]
+                command:
+                  - go
                 args:
                   - test
                   - ./...
