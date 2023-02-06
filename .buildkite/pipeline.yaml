@@ -12,6 +12,7 @@ steps:
                 args:
                   - run
                   - -v
+                  - --timeout 10m
   - name: ":go::hammer: Test"
     agents:
       queue: kubernetes
