@@ -7,22 +7,38 @@ steps:
           podSpec:
             containers:
               - image: golangci/golangci-lint:v1.51.1
+                env:
+                  - name: CGO_ENABLED
+                    value: 0
                 command:
                   - golangci-lint
                 args:
                   - run
                   - -v
                   - --timeout 10m
-  - name: ":go::hammer: Test"
+  - name: ":go::test_tube: Test"
     agents:
       queue: kubernetes
     plugins:
       - kubernetes:
           podSpec:
             containers:
-              - image: golang:1.20
+              - image: golang:1.20-alpine
+                env:
+                  - name: CGO_ENABLED
+                    value: 0
                 command:
                   - go
                 args:
                   - test
                   - ./...
+  - name: ":go::hammer: Build"
+    agents:
+      queue: kubernetes
+    plugins:
+      - kubernetes:
+          podSpec:
+            containers:
+              - image: alpine:3.17.1
+                command:
+                  - build.sh
