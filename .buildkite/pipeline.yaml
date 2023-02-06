@@ -9,7 +9,7 @@ steps:
               - image: golangci/golangci-lint:v1.51.1
                 env:
                   - name: CGO_ENABLED
-                    value: 0
+                    value: "0"
                 command:
                   - golangci-lint
                 args:
@@ -26,7 +26,7 @@ steps:
               - image: golang:1.20-alpine
                 env:
                   - name: CGO_ENABLED
-                    value: 0
+                    value: "0"
                 command:
                   - go
                 args:
