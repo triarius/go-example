@@ -41,4 +41,4 @@ steps:
             containers:
               - image: alpine:3.17.1
                 command:
-                  - [build.sh]
+                  - build.sh
