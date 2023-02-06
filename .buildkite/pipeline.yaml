@@ -1,0 +1,13 @@
+steps:
+  - name: ":go::hammer: Test"
+    agents:
+      queue: kubernetes
+    plugins:
+      - kubernetes:
+          podSpec:
+            containers:
+              - image: golang:1.20
+                command: [go]
+                args:
+                  - test
+                  - ./...
