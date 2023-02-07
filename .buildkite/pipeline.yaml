@@ -39,6 +39,18 @@ steps:
       - kubernetes:
           podSpec:
             containers:
-              - image: moby/buildkit:master-rootless
-                command:
-                  - .buildkite/steps/build.sh
+              - name: docker
+                image: crazymax/docker:latest
+                command: [.buildkite/steps/build.sh]
+                volumeMounts:
+                - name: buildkit-client
+                  mountPath: /buildkit/certs
+                - name: docker-creds
+                  mountPath: /creds/.docker
+            volumes:
+            - name: buildkit-client
+              secret:
+                secretName: buildkit-client-certs
+            - name: docker-creds
+              secret:
+                secretName: dockerconfigjson
