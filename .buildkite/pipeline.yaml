@@ -7,9 +7,6 @@ steps:
           podSpec:
             containers:
               - image: golangci/golangci-lint:v1.51.1
-                env:
-                  - name: CGO_ENABLED
-                    value: "0"
                 command:
                   - golangci-lint
                 args:
@@ -45,12 +42,7 @@ steps:
                 volumeMounts:
                 - name: buildkit-client
                   mountPath: /buildkit/certs
-                - name: docker-creds
-                  mountPath: /creds/.docker
             volumes:
             - name: buildkit-client
               secret:
                 secretName: buildkit-client-certs
-            - name: docker-creds
-              secret:
-                secretName: dockerconfigjson
