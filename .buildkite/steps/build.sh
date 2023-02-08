@@ -6,4 +6,4 @@ docker buildx create --name remote --driver remote --driver-opt cacert=/buildkit
 
 docker buildx use remote
 
-docker buildx build --tag="go-example:${BUILDKITE_COMMIT}" --platform=linux/amd64
+docker buildx build --tag="go-example:${BUILDKITE_COMMIT}" --platform=linux/amd64 .
