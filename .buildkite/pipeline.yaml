@@ -43,7 +43,7 @@ steps:
           podSpec:
             containers:
               - name: docker
-                image: crazymax/docker:latest
+                image: buildkite/agent:3.44.0
                 command: [.buildkite/steps/build.sh]
                 volumeMounts:
                 - name: buildkit-client
