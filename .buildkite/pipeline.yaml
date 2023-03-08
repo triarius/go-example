@@ -2,6 +2,8 @@ steps:
   - name: ":go::lint-roller: Lint"
     agents:
       queue: kubernetes
+    env:
+      BUILDKITE_SHELL: sh -ec
     plugins:
       - kubernetes:
           podSpec:
@@ -16,11 +18,13 @@ steps:
   - name: ":go::test_tube: Test"
     agents:
       queue: kubernetes
+    env:
+      BUILDKITE_SHELL: sh -ec
     plugins:
       - kubernetes:
           podSpec:
             containers:
-              - image: golang:1.20
+              - image: golang:1.20.1-alpine
                 env:
                   - name: CGO_ENABLED
                     value: "0"
@@ -32,6 +36,8 @@ steps:
   - name: ":go::hammer: Build"
     agents:
       queue: kubernetes
+    env:
+      BUILDKITE_SHELL: sh -ec
     plugins:
       - kubernetes:
           podSpec:
