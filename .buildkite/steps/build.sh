@@ -2,7 +2,7 @@
 
 set -euf
 
-apk add docker-cli-buildx
+apk add docker-cli-buildx qemu qemu-system-x86_64 qemu-system-aarch64
 
 docker buildx create \
   --name remote \
