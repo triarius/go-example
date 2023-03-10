@@ -2,6 +2,8 @@
 
 set -euf
 
+apk add docker-cli-buildx
+
 docker buildx create \
   --name remote \
   --driver remote \
