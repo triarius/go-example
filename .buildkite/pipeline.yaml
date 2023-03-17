@@ -5,6 +5,7 @@ steps:
   env:
     BUILDKITE_SHELL: sh -ec
   plugins:
+  - detect-clowns#v2.0.0: ~
   - kubernetes:
       podSpec:
         metadata:
