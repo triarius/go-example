@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:1.4
-FROM golang:1.20 AS build
+FROM golang:1.20-alpine AS build
 
 WORKDIR /app
 SHELL ["/bin/sh", "-eufc"]
