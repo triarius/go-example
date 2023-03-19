@@ -29,6 +29,8 @@ steps:
             env:
               - name: POSTGRES_PASSWORD
                 value: password
+              - name: POSTGRES_PORT
+                value: 5432
         containers:
         - image: golang:1.20.2-alpine
           env:
