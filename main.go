@@ -4,12 +4,19 @@ import (
 	"fmt"
 	"io"
 	"os"
+
+	"github.com/rs/zerolog"
 )
 
 func main() {
-	Run(os.Stdin, os.Stdout, os.Stderr)
+	logger := zerolog.New(os.Stderr).With().Timestamp().Logger()
+
+	if err := run(os.Stdin, os.Stdout, os.Stderr); err != nil {
+		logger.Error().AnErr(err).Msg("runtime error")
+		os.Exit(1)
+	}
 }
 
-func Run(in io.Reader, out, err io.Writer) {
+func run(in io.Reader, out, err io.Writer) error {
 	fmt.Fprintf(out, "Hello World!\n")
 }
