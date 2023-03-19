@@ -25,12 +25,6 @@ steps:
               value: password
       podSpec:
         containers:
-        - image: alpine:latest
-          command:
-            - sh
-            - -c
-          args:
-            - '"sleep 120"'
         - image: golang:1.20.2-alpine
           env:
           - name: CGO_ENABLED
