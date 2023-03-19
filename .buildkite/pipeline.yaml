@@ -51,7 +51,7 @@ steps:
       podSpec:
         containers:
         - name: docker
-          image: buildkite/agent:3.44.0
+          image: buildkite/agent:3.45.0
           command: [.buildkite/steps/build.sh]
           volumeMounts:
           - name: buildkit-client
