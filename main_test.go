@@ -8,6 +8,7 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	goexample "github.com/triarius/go-example"
 )
 
@@ -24,7 +25,6 @@ func TestHelloWorld(t *testing.T) {
 
 func TestPGX(t *testing.T) {
 	conn, err := pgx.Connect(context.Background(), os.Getenv("DB_URL"))
-	assert.NoError(t, err)
-
+	require.NoError(t, err)
 	defer conn.Close(context.Background())
 }
