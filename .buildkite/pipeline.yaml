@@ -18,14 +18,14 @@ steps:
     queue: kubernetes
   plugins:
   - kubernetes:
+      sidecars:
+        - image: postgres:15-alpine
+          env:
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_PORT
+              value: "5432"
       podSpec:
-        sidecars:
-          - image: postgres:15-alpine
-            env:
-              - name: POSTGRES_PASSWORD
-                value: password
-              - name: POSTGRES_PORT
-                value: "5432"
         containers:
         - image: alpine:latest
           command:
