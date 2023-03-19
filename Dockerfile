@@ -14,6 +14,6 @@ echo "Hello" >> /hello
 echo "World!" >> /hello
 EOF
 
-FROM alpine:3.17.1
+FROM alpine:3.17.2
 COPY --from=build /app/example /usr/local/bin
 ENTRYPOINT [ "example" ]
