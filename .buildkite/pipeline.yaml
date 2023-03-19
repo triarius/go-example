@@ -20,13 +20,12 @@ steps:
   - kubernetes:
       podSpec:
         sidecars:
-          - name: db
-            image: postgres:15-alpine
+          - image: postgres:15-alpine
             env:
               - name: POSTGRES_PASSWORD
                 value: password
               - name: POSTGRES_PORT
-                value: 5432
+                value: "5432"
         containers:
         - image: alpine:latest
           command:
