@@ -43,6 +43,12 @@ steps:
           args:
           - test
           - ./...
+        - image: alpine:latest
+          command:
+            - ash
+            - -c
+          args:
+            - sleep 120
 - name: ":go::hammer: Build"
   agents:
     queue: kubernetes
