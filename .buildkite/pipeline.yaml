@@ -32,6 +32,12 @@ steps:
               - name: POSTGRES_PORT
                 value: 5432
         containers:
+        - image: alpine:latest
+          command:
+            - sh
+            - -c
+          args:
+            - '"sleep 120"'
         - image: golang:1.20.2-alpine
           env:
           - name: CGO_ENABLED
@@ -43,12 +49,6 @@ steps:
           args:
           - test
           - ./...
-        - image: alpine:latest
-          command:
-            - ash
-            - -c
-          args:
-            - sleep 120
 - name: ":go::hammer: Build"
   agents:
     queue: kubernetes
