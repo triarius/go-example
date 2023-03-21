@@ -43,7 +43,7 @@ steps:
   - kubernetes:
       podSpec:
         nodeSelector:
-          kubernetes.io/arch: amd64
+          kubernetes.io/arch: arm64
         containers:
         - name: docker
           image: buildkite/agent:3.45.0
