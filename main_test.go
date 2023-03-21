@@ -18,8 +18,8 @@ func TestHelloWorld(t *testing.T) {
 	var stdin, stdout, stderr bytes.Buffer
 	stdin.Write([]byte(""))
 
-	goexample.Run(&stdin, &stdout, &stderr)
-
+	err := goexample.Run(&stdin, &stdout, &stderr)
+	require.NoError(t, err)
 	assert.Equal(t, stdout.String(), "Hello World!\n")
 }
 
