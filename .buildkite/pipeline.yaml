@@ -1,21 +1,15 @@
+agents:
+  queue: kubernetes
 steps:
 - name: ":go::lint-roller: Lint"
-  agents:
-    queue: kubernetes
   plugins:
   - kubernetes:
       podSpec:
         containers:
         - image: golangci/golangci-lint:v1.52.0
-          command:
-          - golangci-lint
-          args:
-          - run
-          - -v
-          - --timeout 10m
+          command: [golangci-lint, run, -v, --timeout 10m]
 - name: ":go::test_tube: Test"
-  agents:
-    queue: kubernetes
+  artifact_paths: junit-*.xml
   plugins:
   - kubernetes:
       sidecars:
@@ -31,14 +25,8 @@ steps:
             value: "0"
           - name: DB_URL
             value: postgres://postgres:password@localhost:5432/postgres
-          command:
-          - go
-          args:
-          - test
-          - ./...
+          command: [.buildkite/steps/test.sh]
 - name: ":go::hammer: Build"
-  agents:
-    queue: kubernetes
   plugins:
   - kubernetes:
       podSpec:
