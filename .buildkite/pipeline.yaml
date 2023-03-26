@@ -34,7 +34,6 @@ steps:
       podSpec:
         nodeSelector:
           kubernetes.io/arch: arm64
-        serviceAccount: ecr-push
         containers:
         - name: docker
           image: buildkite/agent:3.45.0
@@ -46,3 +45,6 @@ steps:
         - name: buildkit-client
           secret:
             secretName: buildkit-client-certs
+  - triarius/aws-assume-role-with-web-identity#install-cli:
+      role-arn: arn:aws:iam::253213882263:role/agent-ci-k8s-ecr
+      install-tools: alpine
