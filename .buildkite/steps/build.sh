@@ -4,7 +4,8 @@ set -euf
 
 repo=253213882263.dkr.ecr.ap-southeast-2.amazonaws.com
 
-apk add --update-cache aws-cli
+echo --- :hammer: Installing Tools
+apk add --update-cache --no-progress aws-cli
 
 docker buildx create \
   --name remote \
