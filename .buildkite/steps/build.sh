@@ -22,4 +22,4 @@ aws ecr get-login-password --region ap-southeast-2 |
     "$repo"
 
 echo --- :docker: Building Image
-docker buildx build --progress=plain --tag="$repo/go-example:${BUILDKITE_COMMIT}" --push --platform=linux/arm64 .
+docker buildx build --progress=plain --tag="$repo/go-example:${BUILDKITE_COMMIT}" --push --platform=linux/amd64,linux/arm64 .
