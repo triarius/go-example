@@ -7,11 +7,12 @@ repo=253213882263.dkr.ecr.ap-southeast-2.amazonaws.com
 echo --- :hammer: Installing Tools
 apk add --update-cache --no-progress aws-cli
 
+echo --- :docker: Creating buildx builder
 docker buildx create \
   --name remote \
   --driver remote \
   --driver-opt cacert=/buildkit/certs/ca.pem,cert=/buildkit/certs/cert.pem,key=/buildkit/certs/key.pem \
-  tcp://buildkitd:1234 \
+  tcp://buildkitd.buildkite.svc:1234 \
   --use
 
 echo --- :ecr: Logging into ECR
