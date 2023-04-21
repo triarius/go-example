@@ -11,7 +11,7 @@ docker buildx create \
   --name remote \
   --driver remote \
   --driver-opt cacert=/buildkit/certs/ca.pem,cert=/buildkit/certs/cert.pem,key=/buildkit/certs/key.pem \
-  tcp://buildkitd.buildkite-clusters.svc:1234 \
+  tcp://buildkitd:1234 \
   --use
 
 echo --- :ecr: Logging into ECR
