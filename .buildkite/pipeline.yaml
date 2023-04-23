@@ -1,14 +1,15 @@
 agents:
   queue: kubernetes
+
 steps:
-- name: ":go::lint-roller: Lint"
+- label: ":go::lint-roller: Lint"
   plugins:
   - kubernetes:
       podSpec:
         containers:
         - image: golangci/golangci-lint:v1.52.2
           command: [golangci-lint, run, -v, --timeout 10m]
-- name: ":go::test_tube: Test"
+- label: ":go::test_tube: Test"
   artifact_paths: junit-*.xml
   plugins:
   - kubernetes:
@@ -28,7 +29,7 @@ steps:
           - name: CGO_ENABLED
             value: "0"
           command: [.buildkite/steps/test.sh]
-- name: ":go::hammer: Build"
+- label: ":go::hammer: Build"
   plugins:
   - kubernetes:
       podSpec:
