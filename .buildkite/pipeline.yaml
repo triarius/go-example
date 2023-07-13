@@ -31,6 +31,11 @@ steps:
 - name: ":go::hammer: Build"
   plugins:
   - kubernetes:
+      metadata:
+        annotations:
+          some-annotation: cool
+        labels:
+          some-label: wow
       podSpec:
         containers:
         - name: docker
