@@ -8,6 +8,12 @@ steps:
         containers:
         - image: golangci/golangci-lint:v1.52.2
           command: [golangci-lint, run, -v, --timeout 10m]
+          resources:
+            cpu:
+              request: 100m
+            memory:
+              request: 100Mi
+              limit: 200Mi
 - name: ":go::test_tube: Test"
   artifact_paths: junit-*.xml
   plugins:
@@ -39,12 +45,6 @@ steps:
           volumeMounts:
           - name: buildkit-client
             mountPath: /buildkit/certs
-          resources:
-            cpu:
-              request: 100m
-            memory:
-              request: 100Mi
-              limit: 200Mi
         volumes:
         - name: buildkit-client
           secret:
