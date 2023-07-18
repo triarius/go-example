@@ -39,16 +39,16 @@ steps:
           volumeMounts:
           - name: buildkit-client
             mountPath: /buildkit/certs
+          resources:
+            cpu:
+              request: 100m
+            memory:
+              request: 100Mi
+              limit: 200Mi
         volumes:
         - name: buildkit-client
           secret:
             secretName: buildkit-client-certs
-        resources:
-          cpu:
-            request: 100m
-          memory:
-            request: 100Mi
-            limit: 200Mi
   - triarius/aws-assume-role-with-web-identity#install-cli:
       role-arn: arn:aws:iam::253213882263:role/agent-ci-k8s-ecr
       install-tools: alpine
