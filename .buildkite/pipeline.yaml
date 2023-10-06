@@ -13,17 +13,17 @@ steps:
   plugins:
   - kubernetes:
       sidecars:
-        - image: postgres:15-alpine
-          envFrom:
-            - secretRef:
-                name: postgres-test-secrets
+      - image: postgres:15-alpine
+        envFrom:
+        - secretRef:
+            name: postgres-test-secrets
       podSpec:
-        serviceAccount: postgres-test
+        serviceAccountName: postgres-test
         containers:
         - image: golang:1.20.2-alpine
           envFrom:
-            - secretRef:
-                name: postgres-test-secrets
+          - secretRef:
+              name: postgres-test-secrets
           env:
           - name: CGO_ENABLED
             value: "0"
