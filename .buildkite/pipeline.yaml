@@ -3,7 +3,6 @@ agents:
 steps:
 - label: ":git:"
   env:
-    BUILDKITE_GIT_CLONE_MIRROR_FLAGS: --mirror
     BUILDKITE_GIT_MIRRORS_PATH: /tmp/buildkite-git-mirrors
   plugins:
   - kubernetes:
