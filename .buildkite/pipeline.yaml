@@ -23,7 +23,6 @@ steps:
           hostPath:
             path: /tmp
             type: ''
-        serviceAccountName: not-a-real-service-account
       extraVolumeMounts:
       - name: host-volume
         mountPath: /tmp/buildkite-git-mirrors
@@ -45,7 +44,6 @@ steps:
         - secretRef:
             name: postgres-test-secrets
       podSpec:
-        serviceAccountName: postgres-test
         containers:
         - image: golang:1.20.2-alpine
           envFrom:
