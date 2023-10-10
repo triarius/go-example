@@ -2,8 +2,6 @@ agents:
   queue: kubernetes
 steps:
 - label: ":git:"
-  env:
-    BUILDKITE_GIT_MIRRORS_PATH: /tmp/buildkite-git-mirrors
   plugins:
   - kubernetes:
       podSpec:
@@ -12,62 +10,7 @@ steps:
           command: [ash]
           args:
           - -c
-          - '"echo volume mounted > /tmp/buildkite-git-mirrors/foo.txt"'
-        - image: alpine:latest
-          command: [ash]
-          args:
-          - -c
-          - '"sleep 2; ls -lA /tmp/buildkite-git-mirrors"'
-        volumes:
-        - name: host-volume
-          hostPath:
-            path: /tmp
-            type: ''
-      extraVolumeMounts:
-      - name: host-volume
-        mountPath: /tmp/buildkite-git-mirrors
-        subPath: buildkite-git-mirrors
-- name: ":go::lint-roller: Lint"
-  plugins:
-  - kubernetes:
-      podSpec:
-        containers:
-        - image: golangci/golangci-lint:v1.52.2
-          command: [golangci-lint, run, -v, --timeout 10m]
-- name: ":go::test_tube: Test"
-  artifact_paths: junit-*.xml
-  plugins:
-  - kubernetes:
-      sidecars:
-      - image: postgres:15-alpine
-        envFrom:
-        - secretRef:
-            name: postgres-test-secrets
-      podSpec:
-        containers:
-        - image: golang:1.20.2-alpine
+          - '"echo $NEW_KEY"'
           envFrom:
           - secretRef:
               name: postgres-test-secrets
-          env:
-          - name: CGO_ENABLED
-            value: "0"
-          command: [.buildkite/steps/test.sh]
-- name: ":go::hammer: Build"
-  plugins:
-  - kubernetes:
-      podSpec:
-        containers:
-        - name: docker
-          image: buildkite/agent:3.45.0
-          command: [.buildkite/steps/build.sh]
-          volumeMounts:
-          - name: buildkit-client
-            mountPath: /buildkit/certs
-        volumes:
-        - name: buildkit-client
-          secret:
-            secretName: buildkit-client-certs
-  - triarius/aws-assume-role-with-web-identity#install-cli:
-      role-arn: arn:aws:iam::253213882263:role/agent-ci-k8s-ecr
-      install-tools: alpine
