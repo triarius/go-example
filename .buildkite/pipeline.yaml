@@ -11,6 +11,3 @@ steps:
           args:
           - -c
           - '"echo $$NEW_KEY"'
-          envFrom:
-          - secretRef:
-              name: postgres-test-secrets
