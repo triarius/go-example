@@ -11,3 +11,6 @@ steps:
           args:
           - -c
           - '"echo $$NEW_KEY"'
+          envFrom:
+          - secretRef:
+              name: agent-stack-k8s-external-secrets
