@@ -11,7 +11,7 @@ steps:
         - image: alpine:latest
           command: [ash]
           args:
-          -  -c
+          - -c
           - '"echo volume mounted > /tmp/buildkite-git-mirrors/foo.txt"'
         - image: alpine:latest
           command: [ash]
@@ -23,6 +23,7 @@ steps:
           hostPath:
             path: /tmp
             type: ''
+        serviceAccountName: not-a-real-service-account
       extraVolumeMounts:
       - name: host-volume
         mountPath: /tmp/buildkite-git-mirrors
