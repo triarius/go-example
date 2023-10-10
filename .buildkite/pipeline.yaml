@@ -10,7 +10,7 @@ steps:
           command: [ash]
           args:
           - -c
-          - '"echo $$NEW_KEY"'
+          - '"sleep 60 && echo hello world"'
           envFrom:
           - secretRef:
               name: agent-stack-k8s-external-secrets
