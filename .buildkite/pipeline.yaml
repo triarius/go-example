@@ -11,6 +11,3 @@ steps:
           args:
           - -c
           - '"sleep 60 && echo hello world"'
-          envFrom:
-          - secretRef:
-              name: agent-stack-k8s-external-secrets
