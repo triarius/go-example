@@ -11,3 +11,6 @@ steps:
           args:
           - -c
           - '"sleep 60 && echo hello world"'
+          envFrom:
+          - secretRef:
+              name: postgres-test-secrets
