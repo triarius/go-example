@@ -10,7 +10,7 @@ steps:
           command: [ash]
           args:
           - -c
-          - '"echo $NEW_KEY"'
+          - '"echo $$NEW_KEY"'
           envFrom:
           - secretRef:
               name: postgres-test-secrets
