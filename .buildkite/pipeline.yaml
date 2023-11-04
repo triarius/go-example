@@ -3,9 +3,9 @@ agents:
 steps:
 - name: "upload artifact"
   artifact_paths: test.txt
-  command: echo "hello world" > test.txt
   plugins:
   - kubernetes:
       podSpec:
         containers:
         - image: alpine:latest
+          command: [ash, -c, echo "hello world" > test.txt]
