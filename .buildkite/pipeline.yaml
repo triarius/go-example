@@ -8,4 +8,4 @@ steps:
       podSpec:
         containers:
         - image: alpine:latest
-          command: [ash, -c, echo "hello world" > test.txt && false]
+          command: [ash, -c, echo "hello world" > test.txt && sleep 10 && false]
