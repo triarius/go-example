@@ -1,7 +1,7 @@
 agents:
   queue: kubernetes
 steps:
-- name: "upload artifact"
+- name: upload artifact
   artifact_paths: test.txt
   plugins:
   - kubernetes:
