@@ -6,35 +6,82 @@ steps:
   - kubernetes:
       podSpec:
         containers:
-        - image: golangci/golangci-lint:v1.52.2
+        - image: golangci/golangci-lint:v1.56.2
           command: [golangci-lint, run, -v, --timeout 10m]
+          env:
+          - name: CGO_ENABLED
+            value: "0"
+          - name: GOLANGCI_LINT_CACHE
+            value: /tmp/cache/golangci-lint
+          - name: GOCACHE
+            value: /tmp/cache/go-build
+          - name: GOMODCACHE
+            value: /tmp/cache/go-mod
+          volumeMounts:
+          - name: golangci-lint-cache
+            mountPath: /tmp/cache/golangci-lint
+          - name: go-build
+            mountPath: /tmp/cache/go-build
+          - name: go-mod
+            mountPath: /tmp/cache/go-mod
+        volumes:
+        - name: golangci-lint-cache
+          hostPath:
+            path: /tmp/cache/golangci-lint
+            type: DirectoryOrCreate
+        - name: go-build
+          hostPath:
+            path: /tmp/cache/go-build
+            type: DirectoryOrCreate
+        - name: go-mod
+          hostPath:
+            path: /tmp/cache/go-mod
+            type: DirectoryOrCreate
 - name: ":go::test_tube: Test"
   artifact_paths: junit-*.xml
   plugins:
   - kubernetes:
       sidecars:
-        - image: postgres:15-alpine
-          envFrom:
-            - secretRef:
-                name: postgres-test-secrets
+      - image: postgres:15-alpine
+        envFrom:
+        - secretRef:
+            name: postgres-test-secrets
       podSpec:
         serviceAccount: postgres-test
         containers:
-        - image: golang:1.20.2-alpine
+        - image: golang:1.22-alpine
+          command: [.buildkite/steps/test.sh]
           envFrom:
-            - secretRef:
-                name: postgres-test-secrets
+          - secretRef:
+              name: postgres-test-secrets
           env:
           - name: CGO_ENABLED
             value: "0"
-          command: [.buildkite/steps/test.sh]
+          - name: GOCACHE
+            value: /tmp/cache/go-build
+          - name: GOMODCACHE
+            value: /tmp/cache/go-mod
+          volumeMounts:
+          - name: go-build
+            mountPath: /tmp/cache/go-build
+          - name: go-mod
+            mountPath: /tmp/cache/go-mod
+        volumes:
+        - name: go-build
+          hostPath:
+            path: /tmp/cache/go-build
+            type: DirectoryOrCreate
+        - name: go-mod
+          hostPath:
+            path: /tmp/cache/go-mod
+            type: DirectoryOrCreate
 - name: ":go::hammer: Build"
   plugins:
   - kubernetes:
       podSpec:
         containers:
         - name: docker
-          image: buildkite/agent:3.45.0
+          image: buildkite/agent:3.63.1
           command: [.buildkite/steps/build.sh]
           volumeMounts:
           - name: buildkit-client
